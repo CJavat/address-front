@@ -64,16 +64,17 @@
 
   // Función para eliminar una dirección
   $(document).on("click", ".btn-danger", function () {
-    var addressId = $(this).data("id");
+    const $button = $(this);
+    const addressId = $button.data("id");
 
-    // Confirmar eliminación
     if (confirm("¿Estás seguro de eliminar esta dirección?")) {
       $.ajax({
         url: `http://localhost:8082/address/id/${addressId}`,
         method: "DELETE",
         success: function () {
           alert("Dirección eliminada exitosamente");
-          location.reload();
+
+          $button.closest("tr").remove();
         },
         error: function () {
           alert("Error al eliminar la dirección");
@@ -81,6 +82,7 @@
       });
     }
   });
+
 
   $(document).on("click", ".btn-primary", function () {
     var addressId = $(this).data("id");
